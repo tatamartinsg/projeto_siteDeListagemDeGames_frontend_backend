@@ -1,8 +1,8 @@
+const bodyParser = require('body-parser')
 const express = require('express')
+const consign = require('consign')
 const morgan = require('morgan')
 const cors = require('cors')
-const bodyParser = require('body-parser')
-const consign = require('consign')
 
 const expressConfig = () => {
     const app = express()
