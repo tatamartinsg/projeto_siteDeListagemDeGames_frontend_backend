@@ -2,8 +2,22 @@ const PersistenciaGame = require('../persistencia/PersistenciaGame.js')
 
 class ControllerGame{
     getGamesControl(){
-        const response = PersistenciaGame.getGamesPersistencia();
-        return response
+        return PersistenciaGame.getGamesPersistencia()    
+    }
+    getGameByIdControl(idJogo){
+        return PersistenciaGame.getGameByIdPersistencia(idJogo)
+    }
+    getCategoriasGameByIdControl(idJogo){
+        return PersistenciaGame.getCategoriasGameByIdPersistencia(idJogo)
+    }
+    getPlataformasGameByIdControl(idJogo){
+        return PersistenciaGame.getPlataformasGameByIdPersistencia(idJogo)
+    }
+    getClassificacaoGameByIdControl(idJogo){
+        return PersistenciaGame.getClassificacaoGameByIdPersistencia(idJogo)
+    }
+    getDescricaoClassificacaoGameByIdControl(idJogo){
+        return PersistenciaGame.getDescricaoClassificacaoGameByIdPersistencia(idJogo)
     }
 }
 

@@ -11,6 +11,7 @@ conexao.connect( error => {
         // o servidor irá rodar dentro da porta 3000
         const router = require('./src/routes/routes.js')
         app.use('/', router)
+        // app.use('/games', router)
         
         app.listen(PORT, () => {
             console.log(`Express started at http://localhost:${PORT}`)

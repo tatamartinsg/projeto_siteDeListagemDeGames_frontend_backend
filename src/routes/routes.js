@@ -11,4 +11,36 @@ router.get('/games-imagens', (req, res) => {
             console.log(error)
         })
 })
+router.get('/game/:id', async (req,res) => {
+   
+    const idJogo = req.params.id
+    console.log(idJogo)
+
+    const jogoById = await ControllerGame.getGameByIdControl(idJogo)
+    const categoriasGameById = await ControllerGame.getCategoriasGameByIdControl(idJogo)
+    const plataformasGameById = await ControllerGame.getPlataformasGameByIdControl(idJogo)
+    const classificacaoGameById = await ControllerGame.getClassificacaoGameByIdControl(idJogo)
+    const descricaoClassificacaoById = await ControllerGame.getDescricaoClassificacaoGameByIdControl(idJogo)
+
+    const resultadoFinal = jogoById
+    
+    const categorias = []
+    const descricaoClassificacao = []
+
+    for (let i = 0; i < categoriasGameById.length; i++) {
+        categorias.push(categoriasGameById[i].nomeCategoria)
+    }
+    for (let i = 0; i < descricaoClassificacaoById.length; i++) {
+        descricaoClassificacao.push(descricaoClassificacaoById[i].descricao)
+    }
+
+    classificacaoGameById[0].descricao = descricaoClassificacao
+    resultadoFinal[0].categorias = categorias
+    resultadoFinal[0].plataformas = plataformasGameById
+    resultadoFinal[0].classificacao = classificacaoGameById
+    
+    res.json(resultadoFinal)
+
+    
+})
 module.exports = router
