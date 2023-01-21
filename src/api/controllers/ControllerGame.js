@@ -19,6 +19,9 @@ class ControllerGame{
     getDescricaoClassificacaoGameByIdControl(idJogo){
         return PersistenciaGame.getDescricaoClassificacaoGameByIdPersistencia(idJogo)
     }
+    getGamesByCategoriaControl(nomeCategoria){
+        return PersistenciaGame.getGamesByCategoriaPersistencia(nomeCategoria)
+    }
 }
 
 module.exports = new ControllerGame

@@ -9,6 +9,7 @@ router.get('/games-imagens', (req, res) => {
         })
         .catch(error =>{
             console.log(error)
+            res.json(error)
         })
 })
 router.get('/game/:id', async (req,res) => {
@@ -41,6 +42,17 @@ router.get('/game/:id', async (req,res) => {
     
     res.json(resultadoFinal)
 
+    
+})
+router.get('/categorias/:nomeCategorias', async (req,res) => {
+    const nomeCategoria = req.params.nomeCategorias
+    await ControllerGame.getGamesByCategoriaControl(nomeCategoria)
+        .then(result => {
+            res.json(result)
+        })
+        .catch(error => {
+            res.json(error)
+        })
     
 })
 module.exports = router

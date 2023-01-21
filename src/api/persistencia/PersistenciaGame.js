@@ -38,6 +38,15 @@ class PersistenciaGame{
                     WHERE idJogo = ${idJogo};`
         return query(sql)
     }
+    getGamesByCategoriaPersistencia(nomeCategoria){
+        console.log(nomeCategoria)
+        const sql = `SELECT * FROM jogo
+                    NATURAL JOIN jogo_has_categoria
+                    NATURAL JOIN categoria
+                    NATURAL JOIN imagem
+                    WHERE nomeCategoria LIKE '%${nomeCategoria}%';`
+        return query(sql)
+    }
 }
 
 module.exports = new PersistenciaGame
