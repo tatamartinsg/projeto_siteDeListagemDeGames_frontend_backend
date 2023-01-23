@@ -1,21 +1,27 @@
 <script>
 import { ref } from 'vue'
-import axios from 'axios'
+import GamesServices from '../services/Games/GamesServices'
 import CarouselMiniCard from './carousels/CarouselMiniCard.vue'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
 import CarouselFavoritos from './carousels/CarouselFavoritos.vue'
 import Search from './Search.vue'
 
-
 export default {
   name:'Home',
+  components: {
+    'carousel-minicard': CarouselMiniCard,
+    'carousel-principal': CarouselPrincipal,
+    'carousel-favoritos': CarouselFavoritos,
+    'games-search': Search
+  },
   data(){
     return{
       allGames: {},
       gamesDestaques: {},
       gameOfTheYear: {},
       gamesLancamentos: {},
-      gamesMaisVendidos: {}
+      gamesMaisVendidos: {},
+      gamesFavoritos: {}
     }
   },
   setup() {
@@ -29,24 +35,28 @@ export default {
   },
   methods:{
     async getGames(){
-      await axios.get(`http://localhost:3000/games-imagens`)
-          .then(response => {
-            this.allGames = response.data
-            this.getDestaques(this.allGames)
-            this.getGameOfTheYear(this.allGames)
-            this.getGamesLancamentos(this.allGames)
-            this.getGamesMaisVendidos(this.allGames)
+      try{
+        const response = await GamesServices.getGames()   
+        this.allGames = response
 
-          }).catch( err => {
-            console.log(err)
-          })
+        this.getDestaques()
+        this.getGamesFavoritos()
+        this.getGameOfTheYear()
+        this.getGamesLancamentos()
+        this.getGamesMaisVendidos()
+
+      }catch(error){
+        console.log(error)
+        return
+      }
+
     },
-    filtrar(filtro, allGames){
-      return allGames.filter((item)=> item.palavraChave.includes(filtro))
+    filtrar(filtro){
+      return this.allGames.filter((item)=> item.palavraChave.includes(filtro))
     },
-    getDestaques(allGames){
+    getDestaques(){
       const filtro = 'destaque' 
-      this.gamesDestaques = this.filtrar(filtro, allGames)
+      this.gamesDestaques = this.filtrar(filtro)
       this.ordenarPorClassificacao(this.gamesDestaques)
     },
     ordenarPorClassificacao(params){
@@ -59,27 +69,27 @@ export default {
         } 
       })
     },
-    getGameOfTheYear(allGames){
+    getGamesFavoritos(){
+      const filtro = 'favorito'
+      this.gamesFavoritos = this.filtrar(filtro)
+      console.log(this.gamesFavoritos)
+    },
+    getGameOfTheYear(){
       const filtro = 'gameoftheyear' 
-      this.gameOfTheYear = this.filtrar(filtro, allGames)
+      this.gameOfTheYear = this.filtrar(filtro)
+      console.log(this.gameOfTheYear)
     },
-    getGamesLancamentos(allGames){
+    getGamesLancamentos(){
       const filtro = 'lançamento' 
-      this.gamesLancamentos = this.filtrar(filtro, allGames)
+      this.gamesLancamentos = this.filtrar(filtro)
     },
-    getGamesMaisVendidos(allGames){
+    getGamesMaisVendidos(){
       const filtro = 'mais vendido' 
-      this.gamesMaisVendidos = this.filtrar(filtro, allGames)
+      this.gamesMaisVendidos = this.filtrar(filtro)
     },
 
+  },
 
-  },
-  components: {
-    'carousel-minicard': CarouselMiniCard,
-    'carousel-principal': CarouselPrincipal,
-    'carousel-favoritos': CarouselFavoritos,
-    'games-search': Search
-  },
 }
 </script>
 <template>
@@ -90,7 +100,7 @@ export default {
           <games-search :allGames="allGames" />
       </div>
       <section>
-        <carousel-favoritos :allGames="allGames" />
+        <carousel-favoritos :games="gamesFavoritos" />
       </section>
       <div class="div-minicards-principal text-white">
         <div class="jogos-do-ano">

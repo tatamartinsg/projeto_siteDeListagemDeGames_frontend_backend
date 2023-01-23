@@ -1,26 +1,26 @@
-const PersistenciaGame = require('../persistencia/PersistenciaGame.js')
+const ServicesGame = require('../Services/ServicesGame.js')
 
 class ControllerGame{
     getGamesControl(){
-        return PersistenciaGame.getGamesPersistencia()    
+        return ServicesGame.getGamesServices()    
     }
     getGameByIdControl(idJogo){
-        return PersistenciaGame.getGameByIdPersistencia(idJogo)
+        return ServicesGame.getGameByIdServices(idJogo)
     }
     getCategoriasGameByIdControl(idJogo){
-        return PersistenciaGame.getCategoriasGameByIdPersistencia(idJogo)
+        return ServicesGame.getCategoriasGameByIdServices(idJogo)
     }
     getPlataformasGameByIdControl(idJogo){
-        return PersistenciaGame.getPlataformasGameByIdPersistencia(idJogo)
+        return ServicesGame.getPlataformasGameByIdServices(idJogo)
     }
     getClassificacaoGameByIdControl(idJogo){
-        return PersistenciaGame.getClassificacaoGameByIdPersistencia(idJogo)
+        return ServicesGame.getClassificacaoGameByIdServices(idJogo)
     }
     getDescricaoClassificacaoGameByIdControl(idJogo){
-        return PersistenciaGame.getDescricaoClassificacaoGameByIdPersistencia(idJogo)
+        return ServicesGame.getDescricaoClassificacaoGameByIdServices(idJogo)
     }
     getGamesByCategoriaControl(nomeCategoria){
-        return PersistenciaGame.getGamesByCategoriaPersistencia(nomeCategoria)
+        return ServicesGame.getGamesByCategoriaServices(nomeCategoria)
     }
 }
 

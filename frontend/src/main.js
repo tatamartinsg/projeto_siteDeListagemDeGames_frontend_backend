@@ -1,6 +1,4 @@
 // FILE: main.js
-import './style.css'
-
 // Assumes your root component is App.vue
 // and placed in same folder as main.js
 import App from './App.vue'
@@ -20,7 +18,7 @@ import '@quasar/extras/bootstrap-icons/bootstrap-icons.css'
 
 // Import Quasar css
 import 'quasar/src/css/index.sass'
-import '../src/reset.css'
+import '../src/assets/css/reset.css'
 
 
 

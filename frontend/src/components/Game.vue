@@ -1,6 +1,8 @@
 <script>
 import axios from 'axios'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
+import GamesServices from '../services/Games/GamesServices'
+
 export default {
   props: ['id'],
   components: {
@@ -11,25 +13,20 @@ export default {
       game: {}
     }
   },
-  setup (props) {
-    return {
-
-    }
-  },
   mounted(){
     const id = this.$route.params.id
-    this.getGame(id)
+    this.getGameByID(id)
   },
   methods:{
-    getGame(id){
-      console.log(id)
-        axios.get(`http://localhost:3000/game/${id}`)
-        .then(response =>{
-          this.game = response.data[0]
-          console.log(response.data[0])
-        }).catch(erro => {
-          console.log(erro)
-        })
+    async getGameByID(id){
+      try{
+        const response = await GamesServices.getGameByID(id)
+        this.game = response[0]
+
+      }catch(error){
+        console.log(error)
+        return
+      }
     }
   }
 }

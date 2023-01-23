@@ -1,8 +1,8 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, computed } from 'vue'
-import Header from './utils/Header.vue'
-import Footer from './utils/Footer.vue'
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 
 export default {

@@ -2,17 +2,12 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
 export default {
+  name:'Header',
   setup () {
     return {
       tab: ref(''),
       clickSearch: false
     }
-  },
-  methods:{
-   clicouSearch(){
-    this.clickSearch = !this.clickSearch
-    console.log(this.clickSearch)
-   } 
   }
 }
 </script>
@@ -99,16 +94,7 @@ export default {
                       </q-item>
                     </q-list>
                   </q-menu>
-                  <!-- <q-menu fit style="width:158px;border-radius: 0px;" >
-                    <q-list style="min-width: 100px" class="fundo-cinza text-white">
-                      <q-item clickable>
-                        <q-item-section>Lista de Jogos</q-item-section>
-                      </q-item>
-                      <q-item clickable>
-                        <q-item-section>Log Out</q-item-section>
-                      </q-item>
-                    </q-list>
-                  </q-menu> -->
+
                 </q-tab>
             </q-tabs>
         </div>

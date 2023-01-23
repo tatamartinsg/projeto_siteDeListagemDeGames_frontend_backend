@@ -1,54 +1,52 @@
 <script>
 import axios from 'axios'
 import Search from './Search.vue'
-export default {
-  data(){
-    return{
-      nomeCategoria: '',
-      gamesByCategoria: {}
-    }
-  },
-  setup (props) {
-    return {
+import GamesServices from '../services/Games/GamesServices.js'
 
-    }
-  },
-  created(){
-    const nomeCategoria = this.$route.params.nomeCategoria 
-    this.nomeCategoria = nomeCategoria
-    this.getGames()
-    this.getCategorias(nomeCategoria)
-  },
-  mounted(){
-    
-   
-  },
-  methods:{
-    async getGames(){
-        await axios.get(`http://localhost:3000/games-imagens`)
-          .then(response => {
-            this.allGames = response.data
-            this.getDestaques(this.allGames)
-            this.getGameOfTheYear(this.allGames)
-            this.getGamesLancamentos(this.allGames)
-            this.getGamesMaisVendidos(this.allGames)
-          }).catch( err => {
-            console.log(err)
-          })
-    },
-    async getCategorias(nomeCategoria){
-        await axios.get(`http://localhost:3000/categorias/${nomeCategoria}`)
-        .then(result => {
-            this.gamesByCategoria = result.data
-            console.log(result.data)
-        }).catch(error => {
-            console.log(error)
-        })
-    }
-  },
+export default {
+  name: 'Categorias',
   components: {
     'games-search': Search
   },
+  data(){
+    return{
+      nomeCategoria: '',
+      gamesByCategoria: {},
+      allGames: {}
+    }
+  },
+  created(){
+    this.getGames()
+
+    const nomeCategoria = this.$route.params.nomeCategoria 
+    this.nomeCategoria = nomeCategoria
+
+    this.getCategorias(nomeCategoria)
+  },
+  methods:{
+    async getGames(){
+      try{
+        const response = await GamesServices.getGames()   
+        this.allGames = response
+
+      }catch(error){
+        console.log(error)
+        return
+      }
+
+    },
+    async getCategorias(nomeCategoria){
+      try{
+        const response = await GamesServices.getGamesByCategoria(nomeCategoria)   
+        this.gamesByCategoria = response
+
+      }catch(error){
+        console.log(error)
+        return
+      }
+    }
+  },
+
 }
 </script>
 

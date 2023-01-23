@@ -3,10 +3,9 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
 
 export default {
-  props: ['allGames'],
+  props: ['games'],
   data(){
     return{
-      i:1,
       gamesFavoritosSlide1: [],
       gamesFavoritosSlide2: [],
       hover: false,
@@ -22,8 +21,7 @@ export default {
   },
   methods:{
     getGamesFavoritos(){
-      const itensFilter = this.allGames.filter((item)=> item.palavraChave.includes('favorito'))
-      const allGamesFavoritos = itensFilter
+      const allGamesFavoritos = this.games
       this.gamesFavoritosSlide1 = allGamesFavoritos.slice(0,5)
       this.gamesFavoritosSlide2 = allGamesFavoritos.slice(5,10)
     },
@@ -39,52 +37,6 @@ export default {
 </script>
 
 <template>
-       <!-- <div class="q-pa-md">
-    <q-carousel
-      v-model="slide"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      swipeable
-      animated
-      control-color="primary"
-      navigation
-      padding
-      arrows
-      height="100%"
-      class="bg-grey-1 shadow-2 rounded-borders"
-    >
-      <q-carousel-slide :name="1" class="column no-wrap">
-        <div id="div-carousel-favoritos" class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-          <q-img :ratio="1" style="width: 250px;" class="rounded-borders full-height" src="https://cdn.quasar.dev/img/parallax1.jpg" />
-        </div>
-        </q-carousel-slide>
-    </q-carousel>
-        
-    </div> -->
-    <!-- <section class="search text-white">
-        <div class="input-group mb-3">
-                <input type="search" class="form-control filtro" @input="input = $event.target.value"
-                 placeholder="Filtre por parte do título" >
-        </div>
-        <div class="div-gameSearch" :class="{someImages: isActiveSearch}">
-            <p class="p-search">Você está buscando por: "{{input}}"</p>
-                        
-            <ul v-for="game in fotosComFiltro" :key="game"  
-                   style="position:relative;top:0px; left:0px;">
-                <li>
-                  <RouterLink :to="'/game/'+game.idJogo" class="RouterLink row" > 
-                    <q-img :ratio="1" style="width: 230px;" class="rounded-borders full-height "
-                      :src="game.imagemCard" />
-                    <div style="position:absolute;top:0px; left:185px;">
-                      <img class="img-coracao" src="../../assets/img/coracao-preto-tracadobranco.png">
-                    </div>
-                </RouterLink>
-                </li>
-
-            </ul>
-        </div>
-        {{seila()}}
-    </section> -->
 
     <div class="q-pa-md">
       <q-carousel

@@ -1,44 +1,44 @@
 const query = require('../model/queries.js')
 
-class PersistenciaGame{
-    getGamesPersistencia(){
+class ServicesGame{
+    getGamesServices(){
         const sql = 'SELECT * FROM jogo NATURAL JOIN imagem;'
         return query(sql)
     }
-    getGameByIdPersistencia(idJogo){
+    getGameByIdServices(idJogo){
         const sql = `SELECT * FROM jogo 
                     NATURAL JOIN imagem 
                     WHERE idJogo = ${idJogo}  `
         return query(sql)
     }
-    getCategoriasGameByIdPersistencia(idJogo){
+    getCategoriasGameByIdServices(idJogo){
         const sql = `SELECT nomeCategoria FROM jogo 
                     NATURAL JOIN jogo_has_categoria
                     NATURAL JOIN categoria
                     WHERE idJogo = ${idJogo}  `
         return query(sql)
     }
-    getPlataformasGameByIdPersistencia(idJogo){
+    getPlataformasGameByIdServices(idJogo){
         const sql = `SELECT nomePlataforma, urlJogo FROM jogo 
                     NATURAL JOIN jogo_has_plataforma
                     NATURAL JOIN plataforma
                     WHERE idJogo = ${idJogo}  `
         return query(sql)
     }
-    getClassificacaoGameByIdPersistencia(idJogo){
+    getClassificacaoGameByIdServices(idJogo){
         const sql = `SELECT classificacao, imagem FROM jogo
                     NATURAL JOIN classificacao
                     WHERE idJogo = ${idJogo};`
         return query(sql)
     }
-    getDescricaoClassificacaoGameByIdPersistencia(idJogo){
+    getDescricaoClassificacaoGameByIdServices(idJogo){
         const sql = `SELECT descricao FROM jogo
                     NATURAL JOIN classificacao_has_descricao
                     NATURAL JOIN descricao
                     WHERE idJogo = ${idJogo};`
         return query(sql)
     }
-    getGamesByCategoriaPersistencia(nomeCategoria){
+    getGamesByCategoriaServices(nomeCategoria){
         console.log(nomeCategoria)
         const sql = `SELECT * FROM jogo
                     NATURAL JOIN jogo_has_categoria
@@ -49,4 +49,4 @@ class PersistenciaGame{
     }
 }
 
-module.exports = new PersistenciaGame
+module.exports = new ServicesGame

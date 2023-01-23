@@ -1,18 +1,13 @@
 <script>
 import { ref } from 'vue'
-import { RouterLink } from 'vue-router';
+
 export default {
+  name:'Footer',
   setup () {
     return {
       tab: ref(''),
       clickSearch: false
     }
-  },
-  methods:{
-   clicouSearch(){
-    this.clickSearch = !this.clickSearch
-    console.log(this.clickSearch)
-   } 
   }
 }
 </script>
