@@ -1,16 +1,16 @@
-const conexao = require('./conexao.js')
+import connection from './conecction.js'
 
-const executaQuery = (query, parametros) => {
+const executeQuery = (query, params) => {
     return new Promise((resolve, reject) => {
-        return conexao.query(query, parametros, (erros,resultados,campos) =>{
+        return connection.query(query, params, (erros,results,campos) =>{
             if(erros){
                 reject(erros)
             }
             else{
-                resolve(resultados)
+                resolve(results)
             }
         })
     })
 }
 
-module.exports = executaQuery
+export default executeQuery

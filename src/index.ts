@@ -1,7 +1,7 @@
 import App from './app'
-import conexao from './model/conexao'
+import conecction from './model/conecction.js'
 
-conexao.connect(error => {
+conecction.connect(error => {
     if(error){
         console.log("Erro ao conectar com o banco de dados",error)
     }
