@@ -10,7 +10,7 @@ export default {
   },
   data(){
     return{
-      nomeCategoria: '',
+      nameCategory: '',
       gamesByCategoria: {},
       allGames: {}
     }
@@ -18,10 +18,10 @@ export default {
   created(){
     this.getGames()
 
-    const nomeCategoria = this.$route.params.nomeCategoria 
-    this.nomeCategoria = nomeCategoria
+    const nameCategory = this.$route.params.nameCategory 
+    this.nameCategory = nameCategory
 
-    this.getCategorias(nomeCategoria)
+    this.getCategorias(nameCategory)
   },
   methods:{
     async getGames(){
@@ -35,10 +35,11 @@ export default {
       }
 
     },
-    async getCategorias(nomeCategoria){
+    async getCategorias(nameCategory){
       try{
-        const response = await GamesServices.getGamesByCategoria(nomeCategoria)   
+        const response = await GamesServices.getGamesByCategoria(nameCategory)   
         this.gamesByCategoria = response
+        console.log(response)
 
       }catch(error){
         console.log(error)
@@ -54,7 +55,7 @@ export default {
     <section class="section-categorias text-white">
         <div class="div-search-categorias">
             <h1 class="h1-categorias row justify-center text-white q-pa-lg">
-                Você está na categoria:  <p class="nomeCategoria">{{ nomeCategoria  }} </p>
+                Você está na categoria:  <p class="nomeCategoria">{{ nameCategory  }} </p>
             </h1>
             <games-search :allGames="gamesByCategoria" />
         </div>
@@ -62,9 +63,9 @@ export default {
             <ul class="ul-search">
                 <li class="li-search " v-for="game in gamesByCategoria" :key="game"  
                    style="position:relative;top:0px; left:0px;"> 
-                    <RouterLink :to="'/game/'+game.idJogo" class="RouterLink">                                  
+                    <RouterLink :to="'/games/'+game.idGame" class="RouterLink">                                  
                         <q-img :ratio="1" class="q-pa-x img-search cards rounded-borders full-height "
-                        :src="game.imagemCard" />
+                        :src="game.imageCard" />
 
                     </RouterLink>                 
                 </li>

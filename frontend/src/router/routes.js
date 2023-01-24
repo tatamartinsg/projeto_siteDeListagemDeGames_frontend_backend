@@ -15,19 +15,19 @@ const routes = createRouter({
       props: true
     },
     {
-      path:'/categorias/:nomeCategoria',
+      path:'/games/category/:nameCategory',
       name: 'Categorias', 
       component: Categorias,
       props: true
     },
     {
-      path:'/game/:id',
+      path:'/games/:id',
       name: 'Game', 
       component: Game,
       props: true
     },
     {
-      path:'/cadastrar',
+      path:'/users/signUp',
       name: 'Cadastrar', 
       component: Cadastrar,
       props: true

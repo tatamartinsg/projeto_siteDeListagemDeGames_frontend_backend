@@ -58,9 +58,9 @@ export default {
               <div v-for="(game, index) in gamesFavoritosSlide1" :key="game" :class="'card'+(index+1)" 
                   class="div-cards">
 
-                  <RouterLink :to="'/game/'+game.idJogo" class="RouterLink" > 
+                  <RouterLink :to="'/games/'+game.idGame" class="RouterLink" > 
                     <q-img :ratio="1" class="img-query rounded-borders full-height "
-                      :src="game.imagemCard" />
+                      :src="game.imageCard" />
                     <div class="div-coracao-preto">
                       <img class="img-coracao" src="../../assets/img/coracao-preto-tracadobranco.png">
                     </div>
@@ -80,9 +80,9 @@ export default {
             <div v-for="(game, index) in gamesFavoritosSlide2" :key="game" :class="'card'+(index+1)" 
                     class="div-cards">
 
-                    <RouterLink :to="'/game/'+game.idJogo" class="RouterLink" > 
+                    <RouterLink :to="'/games/'+game.idGame" class="RouterLink" > 
                       <q-img :ratio="1" class="img-query rounded-borders full-height "
-                        :src="game.imagemCard" />
+                        :src="game.imageCard" />
                       <div class="div-coracao-preto">
                         <img class="img-coracao" src="../../assets/img/coracao-preto-tracadobranco.png">
                       </div>

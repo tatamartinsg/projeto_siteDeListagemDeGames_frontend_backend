@@ -3,7 +3,7 @@ import api from '../api.js'
 class GamesServices{
     async getGames(){
         try{
-            const { data } = await api.get(`/games-imagens`)
+            const { data } = await api.get(`/games/images`)
             return data
 
         } catch(error){
@@ -11,9 +11,11 @@ class GamesServices{
             return error
         }   
     }
-    async getGamesByCategoria(nomeCategoria){
+    async getGamesByCategoria(nameCategory){
         try{
-            const { data } = await api.get(`/categorias/${nomeCategoria}`)
+            const { data }  = await api.get(`/games/category/${nameCategory}`)
+            console.log(data)
+            console.log(nameCategory)
             return data 
 
         } catch(error){
@@ -23,7 +25,7 @@ class GamesServices{
     }
     async getGameByID(id){
         try{
-            const { data } = await api.get(`/game/${id}`)
+            const { data } = await api.get(`/games/${id}`)
             return data
             
         } catch(error){

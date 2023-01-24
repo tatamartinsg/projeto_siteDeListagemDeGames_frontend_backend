@@ -25,46 +25,46 @@ export default {
                   <p style="width:120px" class="p-categorias">Categorias</p>
                   <q-menu fit style="width:120px;border-radius: 0px;" >
                     <q-list style="min-width: 100px" class="fundo-cinza text-white">
-                        <a href="/categorias/ação">
+                        <a href="/games/category/ação">
                           <q-item clickable>
                             <q-item-section>Ação</q-item-section>
                           </q-item>
                         </a>
-                      <a href="/categorias/aventura" class="RouterLink">
+                      <a href="/games/category/aventura" class="RouterLink">
                         <q-item clickable>
                           <q-item-section>Aventura</q-item-section>
                         </q-item>
                       </a>
 
-                      <a href="/categorias/tiro" >
+                      <a href="/games/category/tiro" >
                         <q-item clickable>
                           <q-item-section>Tiro</q-item-section>
                         </q-item>
                       </a>
 
-                      <a href="/categorias/aberto" >
+                      <a href="/games/category/aberto" >
                         <q-item clickable>
                           <q-item-section>Mundo Aberto</q-item-section>
                         </q-item>
                       </a>
 
-                      <a href="/categorias/luta" >
+                      <a href="/games/category/luta" >
                         <q-item clickable>
                           <q-item-section>Luta</q-item-section>
                         </q-item>
                       </a>
                       
-                      <a href="/categorias/rpg" >
+                      <a href="/games/category/rpg" >
                       <q-item clickable>
                         <q-item-section>RPG</q-item-section>
                       </q-item>
                     </a>
-                    <a href="/categorias/sobrevivência" >
+                    <a href="/games/category/sobrevivência" >
                       <q-item clickable>
                         <q-item-section>Sobrevivência</q-item-section>
                       </q-item>
                     </a>
-                    <a href="/categorias/terror" >
+                    <a href="/games/category/terror" >
                       <q-item clickable>
                         <q-item-section>Terror</q-item-section>
                       </q-item>

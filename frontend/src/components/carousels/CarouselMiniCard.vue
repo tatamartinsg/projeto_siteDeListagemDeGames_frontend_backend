@@ -43,21 +43,21 @@ export default {
       >
         <q-carousel-slide :name="1" >
             <div v-for="(game, index) in primeiroSlide " :key="game" >
-              <RouterLink :to="'/game/'+game.idJogo" class="div-minicards" >
+              <RouterLink :to="'/games/'+game.idGame" class="div-minicards" >
                 <div class="div-img-minicard col-4">
                     <q-img
                       class="img-jogo-do-ano"
-                      :src="game.imagemCard"
+                      :src="game.imageCard"
                       :ratio="4/3"
                     />                 
                 </div>
                
                 <div class="div-p-minicard" >
-                    <p class="p-minicard p-minicard-titulo">{{ game.nome }}</p>
+                    <p class="p-minicard p-minicard-titulo">{{ game.name }}</p>
                     <p v-if="subtitulo == 'gameoftheyear'" class="p-minicard p-minicard-premiado">
-                      Premiado do ano {{ game.dataLancamento.split(" ")[4]  }}
+                      Game of the year {{ game.releaseDate.split(" ")[4] }}
                     </p>
-                    <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.dataLancamento  }}</p>
+                    <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.releaseDate.split(" ")[4]  }}</p>
                 </div>
                 <div class="div-opcoes-minicard">
                     <q-btn flat round dense icon="more_vert" />
@@ -69,20 +69,20 @@ export default {
 
         <q-carousel-slide :name="2">
           <div v-for="(game, index) in segundoSlide " :key="game" >
-            <RouterLink :to="'/game/'+game.idJogo" class="div-minicards" >
+            <RouterLink :to="'/game/'+game.idGame" class="div-minicards" >
               <div class="div-img-minicard col-4">
                   <q-img
                     class="img-jogo-do-ano"
-                    :src="game.imagemCard"
+                    :src="game.imageCard"
                     :ratio="4/3"
                   />                 
               </div>
               <div class="div-p-minicard" >
-                  <p class="p-minicard p-minicard-titulo">{{ game.nome }}</p>
+                  <p class="p-minicard p-minicard-titulo">{{ game.name }}</p>
                   <p v-if="subtitulo == 'gameoftheyear'" class="p-minicard p-minicard-premiado">
-                      Premiado do ano {{ game.dataLancamento.split(" ")[4]  }}
+                      Game of the year {{ game.releaseDate.split(" ")[4]  }}
                     </p>
-                  <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.dataLancamento  }}</p>
+                  <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.releaseDate.split(" ")[4] }}</p>
               </div>
               <div class="div-opcoes-minicard">
                   <q-btn flat round dense icon="more_vert" />
@@ -93,20 +93,20 @@ export default {
         
         <q-carousel-slide :name="3">
           <div v-for="(game, index) in terceiroSlide " :key="game" >
-            <RouterLink :to="'/game/'+game.idJogo" class="div-minicards" >
+            <RouterLink :to="'/games/'+game.idGame" class="div-minicards" >
               <div class="div-img-minicard col-4">
                   <q-img
                     class="img-jogo-do-ano"
-                    :src="game.imagemCard"
+                    :src="game.imageCard"
                     :ratio="4/3"
                   />                 
               </div>
               <div class="div-p-minicard" >
-                  <p class="p-minicard p-minicard-titulo">{{ game.nome }}</p>
+                  <p class="p-minicard p-minicard-titulo">{{ game.name }}</p>
                   <p v-if="subtitulo == 'gameoftheyear'" class="p-minicard p-minicard-premiado">
-                      Game of the year {{ game.dataLancamento.split(" ")[4]  }}
+                      Game of the year {{ game.releaseDate.split(" ")[4] }}
                     </p>
-                  <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.dataLancamento  }}</p>
+                  <p v-if="subtitulo == 'lançamento'" class="p-minicard p-minicard-premiado">{{ game.releaseDate.split(" ")[4]  }}</p>
               </div>
               <div class="div-opcoes-minicard">
                   <q-btn flat round dense icon="more_vert" />

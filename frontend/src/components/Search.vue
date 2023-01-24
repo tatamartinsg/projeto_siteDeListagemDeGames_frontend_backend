@@ -50,9 +50,9 @@ export default {
             <ul class="ul-search">
                 <li class="li-search " v-for="game in gamesComFiltro" :key="game"  
                    style="position:relative;top:0px; left:0px;"> 
-                    <RouterLink :to="'/game/'+game.idJogo" class="RouterLink">                                  
+                    <RouterLink :to="'/games/'+game.idGame" class="RouterLink">                                  
                         <q-img :ratio="1" class="q-pa-x img-search cards rounded-borders full-height "
-                        :src="game.imagemCard" />
+                        :src="game.imageCard" />
 
                     </RouterLink>                 
                 </li>

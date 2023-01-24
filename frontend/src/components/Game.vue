@@ -41,23 +41,23 @@ export default {
       <div class="overlay"></div>
     </div>
     <div class="div-titulos">
-        <h1 class="h1-nome-game">{{ game.nome }}</h1>
+        <h1 class="h1-nome-game">{{ game.name }}</h1>
         <div class="div-principal-lancamento-disp-class-btn">
           <div class="div-lancamento-disponivel-classificacao">
 
-            <p>Lançamento: {{ game.dataLancamento }}</p>
+            <p>Lançamento: {{ game.releaseDate }}</p>
 
             <div class="div-disponivel-em">
               <p>Disponível em:</p>
-              <p v-for="plataforma in game.plataformas" :key="plataforma">
-                <a class="a-link-plataforma" :href="plataforma.urlJogo" target="_blank" >{{ plataforma.nomePlataforma}} |</a>
+              <p v-for="plataforma in game.platforms" :key="plataforma">
+                <a class="a-link-plataforma" :href="plataforma.urlGame" target="_blank" >{{ plataforma.namePlatform}} |</a>
               </p>
             </div>
 
-            <div class="div-classificacao" v-for="info in game.classificacao" :key="info">
-              <img :src="info.imagem" style="width: 35px" />
-              <div v-for="descricao in info.descricao" :key="descricao">
-                <p>{{ descricao }} |</p>
+            <div class="div-classificacao" v-for="info in game.classification" :key="info">
+              <img :src="info.imageClassification" style="width: 35px" />
+              <div v-for="description in info.description" :key="description">
+                <p>{{ description }} |</p>
               </div>
             </div>
 
@@ -78,7 +78,7 @@ export default {
     </div>
     <div class="div-sinopse">
       <h1 class="h1-sinopse">Sinopse</h1>
-      <p class="p-sinopse">{{ game.sinopse }}</p>
+      <p class="p-sinopse">{{ game.synopsis }}</p>
     </div>
     <div class="overlay-sinopse"></div>
   </section>

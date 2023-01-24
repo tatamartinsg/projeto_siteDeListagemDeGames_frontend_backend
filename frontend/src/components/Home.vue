@@ -52,7 +52,7 @@ export default {
 
     },
     filtrar(filtro){
-      return this.allGames.filter((item)=> item.palavraChave.includes(filtro))
+      return this.allGames.filter((item)=> item.keyWord.includes(filtro))
     },
     getDestaques(){
       const filtro = 'destaque' 
