@@ -1,26 +1,32 @@
 import UserRepositories from '../repositories/user.repositories'
 import UserInterface from '../services/interfaces/user.interface'
 import bcrypt from 'bcrypt'
+import JWT from '../config/jwt'
+
 class UserServices{    
 
-    async singUpUser(User: UserInterface):Promise< UserInterface | any>{
+    async singUpUser(user: UserInterface):Promise< UserInterface | any>{
         try{
-            const resultUsername = await UserRepositories.verifyUsername(User)
+            const resultUsername = await UserRepositories.verifyUsername(user)
     
             if(resultUsername.length == 0){ //não existe esse username no banco, logo, pode cadastrar
-                User.password = await bcrypt.hash(User.password, 8) 
-                const  response = await UserRepositories.signUpUser(User)
+                const resultEmail = await UserRepositories.verifyEmail(user)
 
-                const resultFinal = {
-                    message: "User was sign up sucessfuly!",
-                    _idUser: response.insertId,
-                    username: User.username,
-                    error: false
-                }
-                return resultFinal
+                if(resultEmail.length == 0 ){
+                    user.password = await bcrypt.hash(user.password, 8) 
+                    const  response = await UserRepositories.signUpUser(user)
+    
+                    const resultFinal = {
+                        message: "Usuário cadastrado com sucesso!",
+                        _idUser: response.insertId,
+                        username: user.username,
+                        error: false
+                    }
+                    return resultFinal
+                }               
             }
             const responseError = {
-                message: "Username alredy exists!",
+                message: "Username ou Email já existe!",
                 error: true
             }
             return responseError
@@ -40,7 +46,8 @@ class UserServices{
                             error:false,
                             auth: true,
                             message: "Logged with sucessful!",
-                            idUser: resultUsername[0].idUser
+                            idUser: resultUsername[0].idUser,
+                            token: JWT.generateToken(user)
                         })
                     }
                     return {error: true, message: "Password is incorrect!"}
@@ -57,7 +64,8 @@ class UserServices{
                             error:false,
                             auth: true,
                             message: "Logged with sucessful!",
-                            idUser: resultEmail[0].idUser
+                            idUser: resultEmail[0].idUser,
+                            token: JWT.generateToken(user)
                         })
                     }
                     return {error: true, message: "Password is incorrect!"}

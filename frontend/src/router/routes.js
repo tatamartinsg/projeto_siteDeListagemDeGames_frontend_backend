@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../components/Home.vue'
 import Game from '../components/Game.vue'
 import Categorias from '../components/Categorias.vue'
-import Cadastrar from '../components/cadastro/Cadastrar.vue'
+import SignUp from '../components/sign-in-up/SignUp.vue'
+import SignIn from '../components/sign-in-up/SignIn.vue'
 import NotFound from '../components/NotFound.vue'
 
 const routes = createRouter({
@@ -27,10 +28,14 @@ const routes = createRouter({
       props: true
     },
     {
-      path:'/users/signUp',
-      name: 'Cadastrar', 
-      component: Cadastrar,
-      props: true
+      path:'/cadastro',
+      name: 'SignUp', 
+      component: SignUp,
+    },
+    {
+      path:'/login',
+      name: 'SignIn', 
+      component: SignIn,
     },
     { 
       path: '/:pathMatch(.*)*', 

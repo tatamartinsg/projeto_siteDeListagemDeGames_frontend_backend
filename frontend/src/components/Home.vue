@@ -1,6 +1,6 @@
 <script>
 import { ref } from 'vue'
-import GamesServices from '../services/Games/GamesServices'
+import GamesServices from '../services/GamesServices'
 import CarouselMiniCard from './carousels/CarouselMiniCard.vue'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
 import CarouselFavoritos from './carousels/CarouselFavoritos.vue'

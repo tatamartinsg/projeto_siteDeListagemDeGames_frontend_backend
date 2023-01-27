@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios'
 import Search from './Search.vue'
-import GamesServices from '../services/Games/GamesServices.js'
+import GamesServices from '../services/GamesServices.js'
 
 export default {
   name: 'Categorias',

@@ -84,14 +84,16 @@ export default {
                   </div>
                   <q-menu fit style="width:158px;border-radius: 0px;" >
                     <q-list style="min-width: 100px" class="fundo-cinza text-white">
-                      <q-item clickable>
-                        <q-item-section>Login</q-item-section>
-                      </q-item>
-                      <q-item clickable>
-                        <RouterLink to="/cadastrar">
-                          <q-item-section>Cadastrar</q-item-section>
-                        </RouterLink>
-                      </q-item>
+                      <RouterLink to="/login">
+                        <q-item clickable>        
+                          <q-item-section>Login</q-item-section>
+                        </q-item>
+                      </RouterLink>
+                      <RouterLink to="/cadastro">
+                        <q-item clickable>                       
+                            <q-item-section >Cadastro</q-item-section>
+                        </q-item>
+                      </RouterLink>
                     </q-list>
                   </q-menu>
 

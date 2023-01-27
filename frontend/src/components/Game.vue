@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
-import GamesServices from '../services/Games/GamesServices'
+import GamesServices from '../services/GamesServices'
 
 export default {
   props: ['id'],
