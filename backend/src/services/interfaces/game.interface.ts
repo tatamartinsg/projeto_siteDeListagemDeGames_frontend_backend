@@ -1,5 +1,5 @@
 interface GameInterface{
-    
+
     idGame: number | string,
     name: string,
     relaseDate: string,
@@ -10,7 +10,7 @@ interface GameInterface{
         imageClassification?: string,
         description?: []
     },
-    keyWord?: string,
+    keyWord: string,
     categories: [],
     platform?: [{
         namePlatform?: string,

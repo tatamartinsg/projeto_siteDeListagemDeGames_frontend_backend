@@ -13,8 +13,12 @@ class UserController{
         console.log(user)
         const response = await UserServices.singInUser(user)
         return res.json(response)
-       
     }
+
+    public async verifyAuth(req:Request, res:Response) :Promise< UserInterface | any>{
+        res.json({error: false, message: "Autenticado com sucesso!"})
+    }
+
 }
 
 export default new UserController()

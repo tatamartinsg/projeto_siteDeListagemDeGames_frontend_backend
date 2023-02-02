@@ -12,6 +12,9 @@ class GamesServices{
             return error
         }
     }
+
+
+    
     public async getGamesByCategory(nameCategory:string ): Promise<GameInterface>{
         try{
             const response = await GamesRepositories.getGamesByCategory(nameCategory)

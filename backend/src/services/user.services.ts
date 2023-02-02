@@ -47,6 +47,7 @@ class UserServices{
                             auth: true,
                             message: "Logged with sucessful!",
                             idUser: resultUsername[0].idUser,
+                            username: resultUsername[0].username,
                             token: JWT.generateToken(user)
                         })
                     }
@@ -65,6 +66,7 @@ class UserServices{
                             auth: true,
                             message: "Logged with sucessful!",
                             idUser: resultEmail[0].idUser,
+                            username: resultEmail[0].username,
                             token: JWT.generateToken(user)
                         })
                     }

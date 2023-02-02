@@ -15,6 +15,13 @@ class UserRepositories{
         return query(sql)
     }
 
+    // getUserById(id: number):Promise<string | any>{
+    //     const sql = `SELECT * FROM user
+    //                 WHERE idUser = ${id};`
+    //     return query(sql)
+    // }
+
+
     signUpUser(user: UserInterface): Promise<object | any>{
         const sql = `INSERT INTO user SET ?; `
         return query(sql, user)

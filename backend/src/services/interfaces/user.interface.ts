@@ -1,8 +1,8 @@
 
 interface UserInterface{
-    idUser?: number | string,
-    username?: string,
-    email?: string,
+    idUser: number | any,
+    username?: string | any,
+    email?: string | any,
     password?: string | any
 }
 
