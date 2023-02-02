@@ -74,12 +74,10 @@ export default {
     getGamesFavoritos(){
       const filtro = 'favorito'
       this.gamesFavoritos = this.filtrar(filtro)
-      console.log(this.gamesFavoritos)
     },
     getGameOfTheYear(){
       const filtro = 'gameoftheyear' 
       this.gameOfTheYear = this.filtrar(filtro)
-      console.log(this.gameOfTheYear)
     },
     getGamesLancamentos(){
       const filtro = 'lançamento' 

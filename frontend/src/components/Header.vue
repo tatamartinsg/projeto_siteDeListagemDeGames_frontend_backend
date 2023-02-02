@@ -34,6 +34,9 @@ export default {
     },
     logout(){
       this.userAuth.userLogout()
+      return setTimeout(function() {
+          window.location.href = "/";
+      }, 1000);
     }
   }
 }

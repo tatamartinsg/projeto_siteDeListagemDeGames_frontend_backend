@@ -5,6 +5,7 @@ import { defineStore } from "pinia";
 const useAuth = defineStore('auth', () => {
     const token = ref(localStorage.getItem('token'))
     const username = ref((JSON.stringify(localStorage.getItem('username'))))
+    const idUserE = ref((JSON.stringify(localStorage.getItem('idUserE'))))
 
     function setToken(tokenValue){
         localStorage.setItem('token',tokenValue)
@@ -14,14 +15,20 @@ const useAuth = defineStore('auth', () => {
         localStorage.setItem('username',usernameValue)
         username.value = usernameValue
     }
+    function setidUserE(idUserEValue){
+        localStorage.setItem('idUserE',idUserEValue)
+        idUserE.value = idUserEValue
+    }
     function isAuthenticated(){
-        return getToken() && getUsername()
+        return getToken() && getUsername() && getidUserE()
     }
     function userLogout(){
         localStorage.removeItem('token')
         localStorage.removeItem('username')
+        localStorage.removeItem('idUserE')
         token.value = ''
         username.value = ''
+        idUserE.value = ''
     }
     async function verifyToken(){
         try{
@@ -34,8 +41,6 @@ const useAuth = defineStore('auth', () => {
                     }
                 }
             )
-            console.log(username)
-            console.log(data)
             return data 
 
         }catch(error){
@@ -53,12 +58,17 @@ const useAuth = defineStore('auth', () => {
         }  
         return username.value  
     }
+    function getidUserE(){
+        return idUserE.value
+    }
     return {
         setToken,
         setUsername,
+        setidUserE,
         verifyToken,
         getToken,
         getUsername,
+        getidUserE,
         isAuthenticated,
         userLogout
     }

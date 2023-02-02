@@ -19,5 +19,14 @@ class GamesController{
     public async teste(req:Request, res: Response){
         return res.json({message:"message"})
     }
+
+    public async getListaDeGamesByIdUserEncrypted(req:Request, res: Response){
+        // console.log(req)
+        console.log("entrouuuuuuuuuuuuu")
+        const username  = req.body.username.replace(/["]/g, '') 
+        const  idUserE  = req.body.idUserE.replace(/["]/g, '') 
+
+        return res.json( await GamesServices.getListaDeGamesByIdUserEncrypted(idUserE,username) )
+    }
 }
 export default new GamesController()

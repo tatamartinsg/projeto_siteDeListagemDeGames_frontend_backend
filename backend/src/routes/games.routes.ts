@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import GamesController from '../controllers/games.controller'
-import authMiddleware from '../middleware/user.auth.middleware'
-import verifyJWT from '../middleware/auth'
+import verifyJWT from '../middleware/user.auth'
 
 const gamesRouter = Router()
+
+gamesRouter.post('/listaDeGames', GamesController.getListaDeGamesByIdUserEncrypted)
 
 gamesRouter.get("/list", verifyJWT , GamesController.teste)
 

@@ -19,7 +19,8 @@ interface GameInterface{
     idImage: number | string,
     imageBg?: string,
     imageCard?: string,
-    length: number
+    length: number,
+    listingCode?: number
 
 }
 

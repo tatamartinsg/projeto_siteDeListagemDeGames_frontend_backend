@@ -1,5 +1,7 @@
+import UserRepositories from '../repositories/user.repositories'
 import GamesRepositories from "../repositories/games.repositories";
 import GameInterface from "./interfaces/game.interface";
+import bcrypt from 'bcrypt'
 
 class GamesServices{
     public async getGames(): Promise<GameInterface | any>{
@@ -57,7 +59,32 @@ class GamesServices{
             return error
         }
     }
-    
+    public async getListaDeGamesByIdUserEncrypted(idUserEncrypted: string | number | any, username:string): Promise<GameInterface| any> {
+        try{
+            // const idUser = await bcrypt.compare(user.password,resultUsername[0].password) 
+
+            const verifyUserByUsername = await UserRepositories.verifyUsername(username)
+            if(verifyUserByUsername){
+
+                const idUser = verifyUserByUsername[0].idUser.toString()
+                console.log(idUser)
+                
+                const verifyId =  await bcrypt.compare(idUser, idUserEncrypted)
+
+                if(verifyId){
+                    const response = await GamesRepositories.getListaDeGamesByIdUserEncrypted(idUser)
+                    return response
+                }
+                return {error: true, message: "id não está correto!"}
+            }
+
+            return {error: true, message: "não existe esse username"}
+
+        }catch(error){
+            console.log(error)
+            return error
+        }
+    }
 
 }
 

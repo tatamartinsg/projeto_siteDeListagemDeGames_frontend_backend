@@ -47,6 +47,13 @@ class GamesRepositories{
                     WHERE idGame = ${idGame};`
         return query(sql)
     }
+    public getListaDeGamesByIdUserEncrypted(idUserEncrypted):Promise<GameInterface>{
+        const sql = ` SELECT name, releaseDate, listingCode, imageBg, imageCard FROM game
+                    NATURAL JOIN user_has_game
+                    NATURAL JOIN image
+                    WHERE idUser = ${idUserEncrypted};`
+        return query(sql)
+    }
 }
 
 export default new GamesRepositories()

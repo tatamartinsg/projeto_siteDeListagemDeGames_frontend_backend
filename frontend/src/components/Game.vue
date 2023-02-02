@@ -1,5 +1,5 @@
 <script>
-import axios from 'axios'
+import { ref } from 'vue'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
 import GamesServices from '../services/GamesServices'
 
@@ -10,7 +10,43 @@ export default {
   },
   data(){
     return{
-      game: {}
+      game: {},
+      favoritos: this.favorito
+    }
+  },
+  setup () {
+    const submitEmpty = ref(false)
+    const submitResult = ref([])
+
+    return {
+      acceptAgreement: ref(false),
+      subscribeNewsletter: ref(null),
+
+      favorito: ref(false),
+      desejoComprar: ref(false),
+      zerei: ref(false),
+      jogando: ref(false),
+
+      submitEmpty,
+      submitResult,
+
+      onSubmit (evt) {
+        // const formData = new FormData(evt.target)
+        // const data = []
+
+        // for (const [ name, value ] of formData.entries()) {
+        //   data.push({
+        //     name,
+        //     value
+        //   })
+        // }
+
+        // submitResult.value = data
+        // submitEmpty.value = data.length === 0
+
+        console.log("ola")
+        console.log(this.favoritos)
+      }
     }
   },
   mounted(){
@@ -32,7 +68,6 @@ export default {
 }
 </script>
 <template>
-  <!-- cabeçalho -->
   <section class="section-principal text-white">
     <div class="div-img-visao text-white">
       <div class="div-p-visao">
@@ -63,7 +98,73 @@ export default {
 
           </div>
           <div class="div-button-listar-jogo">
-            <q-btn class="btn-listar-jogo" color="black" label="Listar jogo" />
+            <!-- <q-btn class="btn-listar-jogo" color="black" label="Listar jogo"  > -->
+              <q-btn color="black" class="btn-listar-jogo" label="Listar jogo" style="width: 200px;border-radius:0px;">
+              <q-menu fit style="border-radius:0px;">
+
+                <q-list style="min-width: 100px; background-color: black; " class="lista text-white text-center">
+                  <q-item clickable class="item-lista">
+                    
+                    <q-item-section>
+                        <q-checkbox
+                        keep-color
+                        color="cyan"
+                        name="favorito"
+                        v-model="favorito"
+                        true-value="favorito"
+                        label="Favorito"
+                      />
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable class="item-lista">
+                    <q-item-section>           
+                      <q-checkbox
+                        keep-color
+                        color="cyan"
+                        name="zerei"
+                        v-model="zerei"
+                        true-value="zerei"
+                        label="Já Zerei"
+                      />
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable class="item-lista">
+                    <q-item-section>
+                      <q-checkbox
+                        keep-color
+                        color="cyan"
+                        name="desejoComprar"
+                        v-model="desejoComprar"
+                        true-value="desejoComprar"
+                        label="Desejo Comprar"
+                      />
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable class="item-lista">
+                    <q-item-section>
+                      <q-checkbox
+                        keep-color
+                        color="cyan"
+                        name="jogando"
+                        v-model="jogando"
+                        true-value="jogando"
+                        label="Jogando"
+                      />
+                     
+                    </q-item-section>
+                  </q-item>
+                  <q-item clickable class="item-lista">
+                    <q-item-section>
+                      <btn @click="onSubmit" style="color:#16f516;">Enviar</btn>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+
+                </q-list>
+
+            </q-menu>
+            </q-btn>
           </div>
         </div>
     </div>
@@ -151,6 +252,10 @@ export default {
 .btn-listar-jogo{
   width: 150px;
   height: 60px;
+}
+.lista{
+  text-transform: uppercase;
+  font-size: 14px;
 }
 
 @media(max-width: 880px){
@@ -245,6 +350,7 @@ export default {
   opacity: 0;
   background-color: black;
 }
+
 
 @media (max-width: 900px){
   .section-video-sinopse{

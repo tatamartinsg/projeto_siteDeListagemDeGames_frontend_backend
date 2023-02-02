@@ -7,10 +7,10 @@ class UserServices{
 
     async singUpUser(user: UserInterface):Promise< UserInterface | any>{
         try{
-            const resultUsername = await UserRepositories.verifyUsername(user)
+            const resultUsername = await UserRepositories.verifyUsername(user.username)
     
             if(resultUsername.length == 0){ //não existe esse username no banco, logo, pode cadastrar
-                const resultEmail = await UserRepositories.verifyEmail(user)
+                const resultEmail = await UserRepositories.verifyEmail(user.email)
 
                 if(resultEmail.length == 0 ){
                     user.password = await bcrypt.hash(user.password, 8) 
@@ -38,15 +38,19 @@ class UserServices{
     async singInUser(user: UserInterface):Promise <UserInterface | any> {
         try{
             if(user.username){ //para logar usando o username
-                const resultUsername = await UserRepositories.verifyUsername(user)
+                const resultUsername = await UserRepositories.verifyUsername(user.username)
                 if(resultUsername.length == 1){ //tem usuario com esse username          
                     const passwordIsValid = await bcrypt.compare(user.password,resultUsername[0].password)  
+
                     if(passwordIsValid){
+                        const idUser = resultUsername[0].idUser.toString()
+                        const idUserEncrypted = await bcrypt.hash(idUser, 1) 
+                        
                         return ({
                             error:false,
                             auth: true,
                             message: "Logged with sucessful!",
-                            idUser: resultUsername[0].idUser,
+                            idUserE: idUserEncrypted,
                             username: resultUsername[0].username,
                             token: JWT.generateToken(user)
                         })
@@ -57,15 +61,19 @@ class UserServices{
             }
 
             if(user.email){ //para logar usando o email
-                const resultEmail = await UserRepositories.verifyEmail(user)
+                const resultEmail = await UserRepositories.verifyEmail(user.email)
                 if(resultEmail.length == 1){ //tem usuario com esse Email                    
                     const passwordIsValid = await bcrypt.compare(user.password,resultEmail[0].password)  
+
                     if(passwordIsValid){
+                        const idUser = resultEmail[0].idUser.toString()
+                        const idUserEncrypted = await bcrypt.hash(idUser, 1) 
+
                         return ({
                             error:false,
                             auth: true,
                             message: "Logged with sucessful!",
-                            idUser: resultEmail[0].idUser,
+                            idUserE: idUserEncrypted,
                             username: resultEmail[0].username,
                             token: JWT.generateToken(user)
                         })

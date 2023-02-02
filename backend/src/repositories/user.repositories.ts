@@ -3,15 +3,15 @@ import UserInterface from '../services/interfaces/user.interface.js'
 
 class UserRepositories{
 
-    verifyUsername(user: UserInterface ):Promise<object | any>{
+    verifyUsername(username:string):Promise<object | any>{
         const sql = `SELECT * FROM user
-                    WHERE username = '${user.username}';`
+                    WHERE username = '${username}';`
         return query(sql)
     }
 
-    verifyEmail(user: UserInterface ):Promise<string | any>{
+    verifyEmail(email:string):Promise<string | any>{
         const sql = `SELECT * FROM user
-                    WHERE email = '${user.email}';`
+                    WHERE email = '${email}';`
         return query(sql)
     }
 

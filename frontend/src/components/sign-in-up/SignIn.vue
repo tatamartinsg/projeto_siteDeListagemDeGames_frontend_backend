@@ -96,17 +96,17 @@ export default {
             if(data.error){
                 return this.alerta("Erro ao fazer login!", data.message, true, false)
             }
-
             const auth = useAuth()
            
             auth.setToken(data.token)
             auth.setUsername(data.username)
+            auth.setidUserE(data.idUserE)
 
             this.alerta("Sucesso ao logar!", data.message, false, true)
 
             return setTimeout(function() {
                 window.location.href = "/";
-            }, 2000);
+            }, 1000);
 
         }   
 
@@ -183,13 +183,12 @@ export default {
 .section-principal-cadastrar {
     width: 100%;
     height: 600px;
-    background-image: url('../../assets/img/sign-in/red-dead-black.jpg');
+    background-image: url('../../assets/img/sign-in/background-hitman.png');
     background-size: cover;
     background-position: 75% 35%;
     background-repeat: no-repeat;
     margin: 0 auto;
     padding: 50px;
-    border-radius: 30px;
     position: relative;
 
 }
@@ -276,7 +275,6 @@ export default {
   height: 100%;
   opacity: 0.5;
   transition: 0.5s;
-  border-radius: 5px;
 }
 .overlay:hover{
   opacity: 0;

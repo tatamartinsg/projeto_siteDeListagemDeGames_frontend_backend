@@ -148,21 +148,7 @@ export default {
     </section>
 </template>
 
-<style>
-.erro{
-    background-color: #4f0000;
-}
-.sucesso{
-    background-color: #245c00;
-}
-.card-alerta{
-    min-width: 400px;
-    border: 0;
-    box-shadow: 0 0 0 0;
-}
-.titulo-alerta{
-    text-transform: uppercase;
-}
+<style scoped>
 .section-principal-cadastrar {
     width: 100%;
     height: 600px;
@@ -172,7 +158,6 @@ export default {
     background-repeat: no-repeat;
     margin: 0 auto;
     padding: 50px;
-    border-radius: 30px;
     position: relative;
 
 }

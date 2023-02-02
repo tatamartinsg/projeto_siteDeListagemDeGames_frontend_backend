@@ -33,6 +33,21 @@ class GamesServices{
             return error
         }
     }
+
+    async getListaDeGamesByIdEncrypted(idUserEncrypted, username){
+        try{
+            const body ={
+                username: username,
+                idUserE: idUserEncrypted
+            }
+            const { data } = await http.post(`/games/listaDeGames`,body)
+            return data
+            
+        } catch(error){
+            console.log(error)
+            return error
+        }
+    }
 }
 
 export default new GamesServices()
