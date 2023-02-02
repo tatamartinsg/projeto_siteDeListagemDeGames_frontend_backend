@@ -1,9 +1,9 @@
-import api from './api.js'
+import http from './http.js'
 
 class GamesServices{
     async getGames(){
         try{
-            const { data } = await api.get(`/games/images`)
+            const { data } = await http.get(`/games/images`)
             return data
 
         } catch(error){
@@ -13,7 +13,7 @@ class GamesServices{
     }
     async getGamesByCategoria(nameCategory){
         try{
-            const { data }  = await api.get(`/games/category/${nameCategory}`)
+            const { data }  = await http.get(`/games/category/${nameCategory}`)
             console.log(data)
             console.log(nameCategory)
             return data 
@@ -25,7 +25,7 @@ class GamesServices{
     }
     async getGameByID(id){
         try{
-            const { data } = await api.get(`/games/${id}`)
+            const { data } = await http.get(`/games/${id}`)
             return data
             
         } catch(error){

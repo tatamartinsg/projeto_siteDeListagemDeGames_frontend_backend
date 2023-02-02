@@ -1,10 +1,10 @@
-import api from './api.js'
+import http from './http.js'
 
 
 class UserServices{
     async cadastrarUser(body){
         try{
-            const { data } = await api.post('/users/signUp', body)
+            const { data } = await http.post('/users/signUp', body)
             return data
 
         }catch(error){
@@ -15,7 +15,7 @@ class UserServices{
 
     async fazerLogin(body){
         try{
-            const { data } = await api.post('/users/signIn', body)
+            const { data } = await http.post('/users/signIn', body)
             return data
 
         }catch(error){

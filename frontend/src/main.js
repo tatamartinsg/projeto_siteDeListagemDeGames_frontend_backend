@@ -4,6 +4,7 @@
 import App from './App.vue'
 
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import { Quasar } from 'quasar'
 import quasarLang from 'quasar/lang/pt-BR'
 import quasarIconSet from 'quasar/icon-set/svg-ionicons-v5'
@@ -22,8 +23,9 @@ import '../src/assets/css/reset.css'
 
 
 
-
 const app = createApp(App)
+
+
 app.use(Quasar, {
   plugins: {}, // import Quasar plugins and add here
   lang: quasarLang,
@@ -32,6 +34,9 @@ app.use(Quasar, {
 app.config.ignoredElements = [/^ion-/]
 
 app.use(routes)
+
+app.use(createPinia())
+
 
 // Assumes you have a <div id="app"></div> in your index.html
 app.mount('#app')

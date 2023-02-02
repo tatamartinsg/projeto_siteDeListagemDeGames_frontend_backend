@@ -2,9 +2,15 @@
 import { ref } from 'vue'
 import UserServices from '../../services/UserServices.js'
 import validarCadastro from '../../services/validarCadastro.js'
-import api from '../../services/api'
+import { reactive } from 'vue'
+import useAuth from '../../stores/auth.js'
+import Alert from '../alerts/Alert.vue'
 
 export default {
+    components:{
+        'simples-alert': Alert
+    },
+    
     data(){
         return{
             clicouInputPassword: false,
@@ -15,6 +21,7 @@ export default {
             email: '',
             tituloAlerta: '',
             messageAlerta: '',
+            acionaAlerta:false,
             erro: false,
             sucesso: false
         }
@@ -40,8 +47,11 @@ export default {
                 return
             }
         },
+        desfazAlerta(){
+            this.acionaAlerta = false
+        },
         alerta(title, message, erro, sucesso){
-            this.alert = true
+            this.acionaAlerta = true
             this.tituloAlerta = title
             this.messageAlerta = message
             this.erro = erro
@@ -58,9 +68,9 @@ export default {
             }
         },
         validarLogin(){
-            const body = {
+            const body = reactive({
                 password: this.password
-            }
+            })
             if(this.password == ""){
                 return this.alerta("Senha inválida","Campo vazio",true,false)
             }
@@ -82,14 +92,21 @@ export default {
         },
         async fazerLogin(body){
             const data = await UserServices.fazerLogin(body)
+
             if(data.error){
                 return this.alerta("Erro ao fazer login!", data.message, true, false)
             }
-            this.email = ''
-            this.username = ''     
-            if(data.error == false){
-                return this.alerta("Sucesso ao logar!", data.message, false, true)
-            }
+
+            const auth = useAuth()
+           
+            auth.setToken(data.token)
+            auth.setUsername(data.username)
+
+            this.alerta("Sucesso ao logar!", data.message, false, true)
+
+            return setTimeout(function() {
+                window.location.href = "/";
+            }, 2000);
 
         }   
 
@@ -99,6 +116,15 @@ export default {
 
 <template>
     <section class="section-principal-cadastrar text-white">
+
+        <simples-alert v-if="acionaAlerta" 
+            v-on:clicouOk="desfazAlerta()"
+            :tituloAlerta="tituloAlerta" 
+            :messageAlerta="messageAlerta"
+            :erro="erro"
+            :sucesso="sucesso"     
+        />
+
         <q-dialog d v-model="alert">
             <q-card dark class="card-alerta" :class="{erro: erro, sucesso: sucesso}">
                 <q-card-section>
@@ -154,21 +180,6 @@ export default {
 </template>
 
 <style scoped>
-
-.erro{
-    background-color: #4f0000;
-}
-.sucesso{
-    background-color: #245c00;
-}
-.card-alerta{
-    min-width: 400px;
-    border: 0;
-    box-shadow: 0 0 0 0;
-}
-.titulo-alerta{
-    text-transform: uppercase;
-}
 .section-principal-cadastrar {
     width: 100%;
     height: 600px;

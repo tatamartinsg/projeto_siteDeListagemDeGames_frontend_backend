@@ -5,6 +5,7 @@ import CarouselMiniCard from './carousels/CarouselMiniCard.vue'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
 import CarouselFavoritos from './carousels/CarouselFavoritos.vue'
 import Search from './Search.vue'
+// import Alert from './alerts/Alert.vue'
 
 export default {
   name:'Home',
@@ -12,7 +13,7 @@ export default {
     'carousel-minicard': CarouselMiniCard,
     'carousel-principal': CarouselPrincipal,
     'carousel-favoritos': CarouselFavoritos,
-    'games-search': Search
+    'games-search': Search,
   },
   data(){
     return{
@@ -21,7 +22,8 @@ export default {
       gameOfTheYear: {},
       gamesLancamentos: {},
       gamesMaisVendidos: {},
-      gamesFavoritos: {}
+      gamesFavoritos: {},
+      isAlertActive: false
     }
   },
   setup() {
@@ -87,6 +89,9 @@ export default {
       const filtro = 'mais vendido' 
       this.gamesMaisVendidos = this.filtrar(filtro)
     },
+    // alertaAtivo(){
+    //   this.isAlertActive = true
+    // }
 
   },
 
@@ -94,6 +99,8 @@ export default {
 </script>
 <template>
   <main>
+      <!-- <my-alert v-if="isAlertActive" :isActiveAlert="true"></my-alert> -->
+
       <carousel-principal :allGames="gamesDestaques" :title="'destaque'" />
       <div class="div-h1-search column">
         <h1 class="h1-home text-white">Crie uma conta e liste seus jogos favoritos</h1>

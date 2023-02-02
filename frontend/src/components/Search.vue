@@ -28,7 +28,7 @@ export default {
     gamesComFiltro() {
         if(this.filtro) {
             let exp = new RegExp(this.filtro.trim(), 'i');
-            return this.allGames.filter(item => exp.test(item.nome));
+            return this.allGames.filter(item => exp.test(item.name));
         } else {
             return this.allGames;
         }

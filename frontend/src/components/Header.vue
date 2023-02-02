@@ -1,22 +1,50 @@
 <script>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
+import useAuth from '../stores/auth.js';
+import ConfirmAlert from './alerts/ConfirmAlert.vue';
+
+
 export default {
+  
   name:'Header',
+  components: {
+    'confirm-alert': ConfirmAlert
+    },
+  data(){
+    const auth = useAuth()
+    return{
+      userAuth: auth,
+      logoutAlerta: false,
+      confirm: false
+    }
+  },
   setup () {
     return {
       tab: ref(''),
       clickSearch: false
     }
+  },
+  methods:{
+    confirmarLogout(){
+      this.logoutAlerta = true
+    },
+    cancelarLogout(){
+      this.logoutAlerta = false
+    },
+    logout(){
+      this.userAuth.userLogout()
+    }
   }
 }
 </script>
 <template>
+   
     <div class="q-gutter-y-sm">
-      <q-toolbar class="fundo-cinza text-white q-toolbar-principal">
+      <q-toolbar  class="fundo-cinza text-white q-toolbar-principal">
         <img class="header-logo" src="../assets/img/header/Playstation_logo_colour.png">
         <!-- Dropdown - Categorias -->
-        <q-toolbar class="desaparecer">
+        <q-toolbar class="desaparecer q-toolbar">
             <q-tabs v-model="tab" shrink>
                 <RouterLink to="/" class="RouterLink">
                     <q-tab name="tab1" label="Home" />
@@ -77,21 +105,41 @@ export default {
         <!-- Dropdown - Sign Up -->
         <div class="q-pa-md desaparecer">
             <q-tabs v-model="tab" shrink >  
-                <q-tab name="tab3" label="" style="width:160px" >
+                <q-tab name="tab3" label="" style="width:160px; max-width: 500px;" >
                   <div class="div-sign-up">
                     <q-btn flat round dense icon="group_add" />
-                    <p>Sign Up</p>
+                    <p v-if="!userAuth.isAuthenticated()"> Sign Up</p>
+                    <p v-if="userAuth.isAuthenticated()">{{ userAuth.getUsername().replace(/["]/g, '') }}</p>
                   </div>
-                  <q-menu fit style="width:158px;border-radius: 0px;" >
+                  <q-menu fit style="width:158px;border-radius: 0px; max-width: 500px;" >
                     <q-list style="min-width: 100px" class="fundo-cinza text-white">
-                      <RouterLink to="/login">
+
+<!--  =======================     Autenticado!!!!! ======================    -->
+
+                      <RouterLink v-if="userAuth.isAuthenticated()" to="/games/listaDeGames">
                         <q-item clickable>        
-                          <q-item-section>Login</q-item-section>
+                          <q-item-section  >Lista de Games</q-item-section>
                         </q-item>
                       </RouterLink>
-                      <RouterLink to="/cadastro">
+                      <RouterLink v-if="userAuth.isAuthenticated()" to="/cadastro">
                         <q-item clickable>                       
-                            <q-item-section >Cadastro</q-item-section>
+                            <q-item-section >Novo Cadastro</q-item-section>
+                        </q-item>
+                      </RouterLink>
+                        <q-item  @click="confirmarLogout()" v-if="userAuth.isAuthenticated()"  clickable >                       
+                            <q-item-section >LogOut</q-item-section>
+                        </q-item>
+                      
+<!-- =======================   Não está autenticado!!!!! =======================   -->
+                      <RouterLink v-if="!userAuth.isAuthenticated()" to="/login">
+                        <q-item clickable>        
+                          <q-item-section >Login</q-item-section>
+                        </q-item>
+                      </RouterLink>
+
+                      <RouterLink  v-if="!userAuth.isAuthenticated()" to="/cadastro">
+                        <q-item clickable>                       
+                            <q-item-section >Criar Conta</q-item-section>
                         </q-item>
                       </RouterLink>
                     </q-list>
@@ -99,14 +147,18 @@ export default {
 
                 </q-tab>
             </q-tabs>
+
         </div>
         <q-btn flat round dense class="btn-menu">
           <q-icon name="menu" />
         </q-btn>
       </q-toolbar>
+      <confirm-alert v-on:confirm="logout()" v-on:cancel="cancelarLogout()" v-if="(logoutAlerta)" :username="userAuth.getUsername()"/>
+
     </div>
   </template>
 <style scoped>
+
 .clickSearch{
   display: none;
 }
@@ -127,9 +179,6 @@ export default {
 
 .fundo-cinza{
     background-color: #232323
-}
-.button-sign-up{
-    width: 120px;
 }
 .p-categorias{
   margin: 0;

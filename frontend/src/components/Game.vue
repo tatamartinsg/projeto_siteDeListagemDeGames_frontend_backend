@@ -142,7 +142,6 @@ export default {
   height: 100%;
   opacity: 0.6;
   transition: 0.5s;
-
 }
 
 .a-link-plataforma:hover{
