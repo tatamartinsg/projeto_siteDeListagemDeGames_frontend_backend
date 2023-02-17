@@ -73,6 +73,7 @@ class GamesServices{
 
                 if(verifyId){
                     const response = await GamesRepositories.getListaDeGamesByIdUserEncrypted(idUser)
+                    console.log(response)
                     return response
                 }
                 return {error: true, message: "id não está correto!"}
@@ -85,6 +86,41 @@ class GamesServices{
             return error
         }
     }
+
+    public async addUserListingCode(idUserEncrypted: string | number | any, username:string, idGame:number, listingCode:Array): Promise<GameInterface| any> {
+        
+        try{
+            const verifyUserByUsername = await UserRepositories.verifyUsername(username)
+
+            if(verifyUserByUsername){
+
+                const idUser = verifyUserByUsername[0].idUser.toString()
+                const verifyId =  await bcrypt.compare(idUser, idUserEncrypted)
+
+                if(verifyId){
+                   
+
+                    for(let i=0; i < listingCode.length; i++){   
+                       const verifyListingCode = await GamesRepositories.verifyUserListingCode(idGame,idUser,listingCode[i])
+                
+                       if(verifyListingCode.length == 0){
+                            //se o jogo não estiver listado, insere no banco
+                            const response = await GamesRepositories.addUserListingCode(idGame,idUser, listingCode[i])
+                       }
+                    }   
+                    return {error: false, message:"Jogo listado com sucesso!"}
+                }
+                return {error: true, message: "id não está correto!"}
+            }
+
+            return {error: true, message: "não existe esse username"}
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+
 
 }
 

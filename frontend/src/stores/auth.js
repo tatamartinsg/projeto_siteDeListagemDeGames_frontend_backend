@@ -32,7 +32,6 @@ const useAuth = defineStore('auth', () => {
     }
     async function verifyToken(){
         try{
-            console.log(token.value)
             const tokenBearer = 'Baerer'+ ' ' + token.value
             const { data } = await http.get('/users/auth/verify',
                 {
@@ -44,8 +43,7 @@ const useAuth = defineStore('auth', () => {
             return data 
 
         }catch(error){
-            console.log("Erro verifyToken")
-            console.log(error.response.data)
+            userLogout()
             return ({error: true, message: "Erro verifyToken"})
         }
     }

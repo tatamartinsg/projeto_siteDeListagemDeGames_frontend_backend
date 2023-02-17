@@ -48,6 +48,15 @@ class GamesServices{
             return error
         }
     }
+
+    async addListingCodeByIdUser(body){
+        try{
+            const { data } = await http.post('/games/add/listingCode', body)
+            return data
+        }catch(error){
+            console.log(error)
+        }
+    }
 }
 
 export default new GamesServices()

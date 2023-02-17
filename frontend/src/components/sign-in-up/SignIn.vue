@@ -8,7 +8,7 @@ import Alert from '../alerts/Alert.vue'
 
 export default {
     components:{
-        'simples-alert': Alert
+        'alert-card': Alert
     },
     
     data(){
@@ -31,7 +31,6 @@ export default {
             text: ref(''),
             ph: ref(''),
             dense: ref(false),
-            alert: ref(false)
         }
     },
     methods:{
@@ -117,7 +116,7 @@ export default {
 <template>
     <section class="section-principal-cadastrar text-white">
 
-        <simples-alert v-if="acionaAlerta" 
+        <alert-card v-if="acionaAlerta" 
             v-on:clicouOk="desfazAlerta()"
             :tituloAlerta="tituloAlerta" 
             :messageAlerta="messageAlerta"
@@ -125,7 +124,7 @@ export default {
             :sucesso="sucesso"     
         />
 
-        <q-dialog d v-model="alert">
+        <!-- <q-dialog d v-model="alert">
             <q-card dark class="card-alerta" :class="{erro: erro, sucesso: sucesso}">
                 <q-card-section>
                 <div class="text-h6 titulo-alerta" >{{ tituloAlerta }}</div>
@@ -139,7 +138,7 @@ export default {
                 <q-btn flat label="OK" color="orange" v-close-popup />
                 </q-card-actions>
             </q-card>
-        </q-dialog>
+        </q-dialog> -->
         <div class="titulos">
             <h1 class="h1-titulo">Faça login em sua conta</h1>
             <p class="p-subtitulo">E liste seus jogos favoritos</p>

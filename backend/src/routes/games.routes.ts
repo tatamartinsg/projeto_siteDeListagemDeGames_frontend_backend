@@ -6,6 +6,8 @@ const gamesRouter = Router()
 
 gamesRouter.post('/listaDeGames', GamesController.getListaDeGamesByIdUserEncrypted)
 
+gamesRouter.post('/add/listingCode', GamesController.addListingCode)
+
 gamesRouter.get("/list", verifyJWT , GamesController.teste)
 
 gamesRouter.get('/images', GamesController.getGames)

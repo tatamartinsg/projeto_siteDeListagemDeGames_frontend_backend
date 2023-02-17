@@ -33,7 +33,8 @@ export default {
   },
   created(){
     this.getGames()
-    
+
+    console.log("ola")
   },
   methods:{
     async getGames(){

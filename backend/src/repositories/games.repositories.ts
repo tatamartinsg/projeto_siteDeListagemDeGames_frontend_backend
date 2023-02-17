@@ -54,6 +54,18 @@ class GamesRepositories{
                     WHERE idUser = ${idUserEncrypted};`
         return query(sql)
     }
+    public addUserListingCode(idGame, idUser, listingCode):Promise<GameInterface>{
+        const sql = `INSERT INTO user_has_game
+                     VALUES(${idGame},${idUser},${listingCode})`
+        return query(sql)
+    }
+    public verifyUserListingCode(idGame, idUser, listingCode):Promise<GameInterface>{
+        const sql = `SELECT * FROM user_has_game
+                     WHERE idGame = ${idGame}
+                     and idUser = ${idUser}
+                     and listingCode = ${listingCode};`
+        return query(sql)
+    }
 }
 
 export default new GamesRepositories()

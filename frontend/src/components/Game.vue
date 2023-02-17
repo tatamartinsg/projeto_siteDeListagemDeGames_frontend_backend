@@ -2,60 +2,39 @@
 import { ref } from 'vue'
 import CarouselPrincipal from './carousels/CarouselPrincipal.vue'
 import GamesServices from '../services/GamesServices'
+import useAuth from '../stores/auth'
+import Alert from './alerts/Alert.vue'
 
 export default {
   props: ['id'],
   components: {
     'carousel-principal': CarouselPrincipal,
+    'alert-card': Alert
   },
   data(){
+    const auth = useAuth()
     return{
       game: {},
-      favoritos: this.favorito
-    }
-  },
-  setup () {
-    const submitEmpty = ref(false)
-    const submitResult = ref([])
-
-    return {
-      acceptAgreement: ref(false),
-      subscribeNewsletter: ref(null),
-
-      favorito: ref(false),
-      desejoComprar: ref(false),
-      zerei: ref(false),
-      jogando: ref(false),
-
-      submitEmpty,
-      submitResult,
-
-      onSubmit (evt) {
-        // const formData = new FormData(evt.target)
-        // const data = []
-
-        // for (const [ name, value ] of formData.entries()) {
-        //   data.push({
-        //     name,
-        //     value
-        //   })
-        // }
-
-        // submitResult.value = data
-        // submitEmpty.value = data.length === 0
-
-        console.log("ola")
-        console.log(this.favoritos)
-      }
+      userAuth: auth,
+      favoritos: this.favorito,
+      acionaAlerta: false,
+      listingCode: ref([]),
+      tituloAlerta: "",
+      descricaoAlerta: "",
+      erro: false,
+      sucesso: false
     }
   },
   mounted(){
-    const id = this.$route.params.id
-    this.getGameByID(id)
+    this.getGameByID()
   },
   methods:{
-    async getGameByID(id){
+    getIdJogoParams(){
+      return this.$route.params.id
+    },
+    async getGameByID(){
       try{
+        const id = this.getIdJogoParams()
         const response = await GamesServices.getGameByID(id)
         this.game = response[0]
 
@@ -63,7 +42,40 @@ export default {
         console.log(error)
         return
       }
+    },
+    desfazAlerta(){
+        this.acionaAlerta = false
+    },
+    verificaAutenticacaoParaAcionarAlertaAoListarJogo(){      
+      if(this.userAuth.isAuthenticated()){
+        return this.acionaAlerta = false
+      }
+
+      this.acionaAlerta = true
+      this.tituloAlerta = "Ação Inválida"
+      this.descricaoAlerta = "Você precisa de fazer login antes de listar o jogo."
+      this.erro = true
+      this.sucesso = false
+    },
+    async listarJogoEnviar(){
+      const idJogo = this.getIdJogoParams()
+      const body = {
+        idGame: idJogo,
+        idUser: this.userAuth.getidUserE(),
+        username: this.userAuth.getUsername(),
+        listingCode: this.listingCode
+      }
+      const response = await GamesServices.addListingCodeByIdUser(body)
+      if(response.error == false){
+        this.acionaAlerta = true
+        this.tituloAlerta = "Sucesso"
+        this.descricaoAlerta = response.message 
+        this.erro = false
+        this.sucesso = true
+      }
+      
     }
+   
   }
 }
 </script>
@@ -97,74 +109,60 @@ export default {
             </div>
 
           </div>
+         
           <div class="div-button-listar-jogo">
             <!-- <q-btn class="btn-listar-jogo" color="black" label="Listar jogo"  > -->
-              <q-btn color="black" class="btn-listar-jogo" label="Listar jogo" style="width: 200px;border-radius:0px;">
-              <q-menu fit style="border-radius:0px;">
+              <q-btn color="black" @click="verificaAutenticacaoParaAcionarAlertaAoListarJogo()"  class="btn-listar-jogo" label="Listar jogo" style="width: 200px;border-radius:0px;">
+                <alert-card v-if="acionaAlerta" 
+                    v-on:clicouOk="desfazAlerta()"
+                    :tituloAlerta="tituloAlerta" 
+                    :messageAlerta="descricaoAlerta"
+                    :erro="erro"
+                    :sucesso="sucesso"     
+                />
+              <q-menu v-if="userAuth.isAuthenticated()" fit style="border-radius:0px;">
 
-                <q-list style="min-width: 100px; background-color: black; " class="lista text-white text-center">
+                <q-form @submit="onSubmit" style="min-width: 100px; background-color: black; " class="lista text-white text-center">
+                 
                   <q-item clickable class="item-lista">
                     
-                    <q-item-section>
-                        <q-checkbox
-                        keep-color
-                        color="cyan"
-                        name="favorito"
-                        v-model="favorito"
-                        true-value="favorito"
-                        label="Favorito"
-                      />
+                    <q-item-section  class="">
+                      <q-checkbox keep-color v-model="listingCode" val="10" label="Favorito" color="teal" />
                     </q-item-section>
                   </q-item>
                   <q-item clickable class="item-lista">
                     <q-item-section>           
-                      <q-checkbox
-                        keep-color
-                        color="cyan"
-                        name="zerei"
-                        v-model="zerei"
-                        true-value="zerei"
-                        label="Já Zerei"
-                      />
+                      <q-checkbox keep-color v-model="listingCode" val="20" label="Já zerei" color="teal" />
                     </q-item-section>
                   </q-item>
                   <q-separator />
                   <q-item clickable class="item-lista">
                     <q-item-section>
-                      <q-checkbox
-                        keep-color
-                        color="cyan"
-                        name="desejoComprar"
-                        v-model="desejoComprar"
-                        true-value="desejoComprar"
-                        label="Desejo Comprar"
-                      />
+                      <q-checkbox keep-color v-model="listingCode" val="30" label="Desejo comprar" color="teal" />
                     </q-item-section>
                   </q-item>
                   <q-item clickable class="item-lista">
                     <q-item-section>
-                      <q-checkbox
-                        keep-color
-                        color="cyan"
-                        name="jogando"
-                        v-model="jogando"
-                        true-value="jogando"
-                        label="Jogando"
-                      />
-                     
+                      <q-checkbox keep-color v-model="listingCode" val="40" label="Jogando" color="teal" />
                     </q-item-section>
                   </q-item>
+
                   <q-item clickable class="item-lista">
                     <q-item-section>
-                      <btn @click="onSubmit" style="color:#16f516;">Enviar</btn>
+                      <q-btn @click="listarJogoEnviar" style="color:#16f516;">Enviar</q-btn>
                     </q-item-section>
                   </q-item>
+
+                 
+                  
                   <q-separator />
 
-                </q-list>
-
+                </q-form>
             </q-menu>
+
             </q-btn>
+            
+      
           </div>
         </div>
     </div>
@@ -181,7 +179,7 @@ export default {
       <h1 class="h1-sinopse">Sinopse</h1>
       <p class="p-sinopse">{{ game.synopsis }}</p>
     </div>
-    <div class="overlay-sinopse"></div>
+    <!-- <div class="overlay-sinopse"></div> -->
   </section>
 </template>
 <style scoped>
