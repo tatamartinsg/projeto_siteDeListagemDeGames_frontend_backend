@@ -40,6 +40,7 @@ export default {
     async getGames(){
       try{
         const response = await GamesServices.getGames()   
+        console.log(response)
         this.allGames = response
 
         this.getDestaques()
@@ -60,21 +61,11 @@ export default {
     getDestaques(){
       const filtro = 'destaque' 
       this.gamesDestaques = this.filtrar(filtro)
-      this.ordenarPorClassificacao(this.gamesDestaques)
-    },
-    ordenarPorClassificacao(params){
-      params.sort(function(a,b){
-        if(a.classificacao > b.classificacao){
-          return -1
-        }
-        else{
-          return true
-        } 
-      })
     },
     getGamesFavoritos(){
       const filtro = 'favorito'
       this.gamesFavoritos = this.filtrar(filtro)
+      console.log(this.gamesFavoritos)
     },
     getGameOfTheYear(){
       const filtro = 'gameoftheyear' 
@@ -112,11 +103,11 @@ export default {
         <div class="jogos-do-ano">
           <h3>Game Of The Year</h3>
           <carousel-minicard :games="gameOfTheYear" :subtitulo="'gameoftheyear'"  />
-        </div>
+        </div> 
         <div class="lançamentos">
           <h3>Lançamentos</h3>
           <carousel-minicard :games="gamesLancamentos" :subtitulo="'lançamento'" />
-        </div>
+        </div> 
 
         <div class="extra">
           <h3>Mais Vendidos</h3>
@@ -156,7 +147,7 @@ export default {
   text-transform: uppercase;
   font-size: 22px;
   text-align: center;
-  color: rgb(78, 78, 78);
+  color: white;
 }
 .jogos-do-ano{
   grid-area: jogos-do-ano;

@@ -9,6 +9,39 @@ class GamesController{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public async getGamesByCategory(req:Request, res:Response) :Promise< GameInterface | any>{
         const nameCategory = req.params.nameCategory
         return res.json( await GamesServices.getGamesByCategory(nameCategory))

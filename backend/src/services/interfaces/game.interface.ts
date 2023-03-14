@@ -1,6 +1,6 @@
 interface GameInterface{
 
-    idGame: number | string,
+    idGame: number,
     name: string,
     relaseDate: string,
     synopsis: string,
@@ -16,7 +16,7 @@ interface GameInterface{
         namePlatform?: string,
         urlGame?: string
     }],
-    idImage: number | string,
+    idImage: number,
     imageBg?: string,
     imageCard?: string,
     length: number,

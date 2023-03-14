@@ -6,7 +6,7 @@ import Categorias from '../components/Categorias.vue'
 import SignUp from '../components/sign-in-up/SignUp.vue'
 import SignIn from '../components/sign-in-up/SignIn.vue'
 import NotFound from '../components/NotFound.vue'
-import ListGames from '../components/ListGames.vue'
+import ListaGames from '../components/ListaGames.vue'
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +42,7 @@ const routes = createRouter({
     {
       path:'/games/listaDeGames',
       name: 'Lista de Games', 
-      component: ListGames,
+      component: ListaGames,
       meta:{
         auth: true
       }

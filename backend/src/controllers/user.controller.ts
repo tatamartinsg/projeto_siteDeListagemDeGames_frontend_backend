@@ -10,7 +10,6 @@ class UserController{
     }
     public async signInUser(req:Request, res:Response) :Promise< UserInterface | any>{
         const user: UserInterface = req.body 
-        console.log(user)
         const response = await UserServices.singInUser(user)
         return res.json(response)
     }

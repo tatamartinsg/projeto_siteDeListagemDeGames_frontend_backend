@@ -69,7 +69,7 @@ export default {
 
         <q-carousel-slide :name="2">
           <div v-for="(game, index) in segundoSlide " :key="game" >
-            <RouterLink :to="'/game/'+game.idGame" class="div-minicards" >
+            <RouterLink :to="'/games/'+game.idGame" class="div-minicards" >
               <div class="div-img-minicard col-4">
                   <q-img
                     class="img-jogo-do-ano"

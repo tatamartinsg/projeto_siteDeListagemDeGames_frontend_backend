@@ -16,6 +16,17 @@ class GamesServices{
     }
 
 
+
+
+
+
+
+
+
+
+
+
+    
     
     public async getGamesByCategory(nameCategory:string ): Promise<GameInterface>{
         try{
