@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 export default {
-    props: ['ConfirmaAlerta','username'],
+    props: ['ConfirmaAlerta','username','message','cancelar','confirmar'],
 
     data(){
         return{
@@ -27,11 +27,11 @@ export default {
         <q-card  class="card-alerta" dark>
           <q-card-section class="row items-center">
             <q-icon class="icone-alert" name="ion-alert"></q-icon>
-            <span class="q-ml-sm">Você tem certeza de que deseja deslogar de sua conta?</span>
+            <span class="q-ml-sm">{{ message }}</span>
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Continuar logado" color="green" @click="$emit('cancel')" v-close-popup />
-            <q-btn flat label="Deslogar" color="red" @click="$emit('confirm')" v-close-popup />
+            <q-btn flat :label="cancelar" color="green" @click="$emit('cancel')" v-close-popup />
+            <q-btn flat :label="confirmar" color="red" @click="$emit('confirm')" v-close-popup />
           </q-card-actions>
         </q-card>
       </q-dialog>

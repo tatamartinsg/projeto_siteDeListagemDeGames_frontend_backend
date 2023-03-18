@@ -66,6 +66,14 @@ class GamesRepositories{
                      and listingCode = ${listingCode};`
         return query(sql)
     }
+    public deleteGameById(idGame, idUser, listingCode):Promise<GameInterface>{
+        const sql = `DELETE FROM user_has_game 
+                     WHERE idGame = ${idGame} 
+                     and idUser = ${idUser} 
+                     and listingCode = ${listingCode};`
+        return query(sql)
+    }
+    
 }
 
 export default new GamesRepositories()

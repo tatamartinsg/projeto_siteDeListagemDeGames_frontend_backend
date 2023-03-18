@@ -57,6 +57,23 @@ class GamesServices{
             console.log(error)
         }
     }
+
+    
+    async deleteGameById(body){
+        try{
+            const { response } = await http.delete('/games/deleteGameById', { 
+                data: { 
+                    username: body.username,
+                    idUserE: body.idUserE,
+                    idGame: body.idGame,
+                    listingCode: body.listingCode
+                }
+            })
+            return response
+        }catch(error){
+            console.log(error)
+        }
+    }
 }
 
 export default new GamesServices()

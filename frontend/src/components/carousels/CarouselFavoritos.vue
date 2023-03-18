@@ -111,7 +111,7 @@ export default {
 .div-coracao-preto{
   position:absolute;
   top:0px; 
-  left:185px;
+  left:180px;
 }
 .carousel-cards-favoritos {
   background-color: rgb(2, 2, 2);

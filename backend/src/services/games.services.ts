@@ -16,18 +16,6 @@ class GamesServices{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    
-    
     public async getGamesByCategory(nameCategory:string ): Promise<GameInterface>{
         try{
             const response = await GamesRepositories.getGamesByCategory(nameCategory)
@@ -98,7 +86,7 @@ class GamesServices{
         }
     }
 
-    public async addUserListingCode(idUserEncrypted: string | number | any, username:string, idGame:number, listingCode:Array): Promise<GameInterface| any> {
+    public async addUserListingCode(idUserEncrypted: string | number | any, username:string, idGame:number, listingCode:Array): Promise<GameInterface| object> {
         
         try{
             const verifyUserByUsername = await UserRepositories.verifyUsername(username)
@@ -128,6 +116,35 @@ class GamesServices{
 
         }catch(error){
             console.log(error)
+            return error
+        }
+    }
+
+    public async deleteGameById(idUserEncrypted, username, idGame, listingCode:string ): Promise<GameInterface | object>{
+        try{
+            const verifyUserByUsername = await UserRepositories.verifyUsername(username)
+
+            if(verifyUserByUsername){
+
+                const idUser = verifyUserByUsername[0].idUser.toString()
+                const verifyId =  await bcrypt.compare(idUser, idUserEncrypted)
+
+                if(verifyId){
+                    const response = await GamesRepositories.deleteGameById(idGame, idUser, listingCode)
+                    console.log(response)
+                    return response
+                }
+
+                return {error: true, message: "id não está correto!"}
+            }
+
+            return {error: true, message: "não existe esse username"}
+            
+            
+        
+        }catch(error){
+            console.log(error)
+            return error
         }
     }
 

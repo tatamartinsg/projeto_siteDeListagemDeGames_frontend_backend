@@ -49,15 +49,15 @@ class UserServices{
                         return ({
                             error:false,
                             auth: true,
-                            message: "Logged with sucessful!",
+                            message: "Logado com sucesso!",
                             idUserE: idUserEncrypted,
                             username: resultUsername[0].username,
                             token: JWT.generateToken(user)
                         })
                     }
-                    return {error: true, message: "Password is incorrect!"}
+                    return {error: true, message: "Login incorreto!"}
                 }
-                return {message: "Username not found.", error: true}
+                return {message: "Login incorreto!", error: true}
             }
 
             if(user.email){ //para logar usando o email
@@ -78,9 +78,9 @@ class UserServices{
                             token: JWT.generateToken(user)
                         })
                     }
-                    return {error: true, message: "Password is incorrect!"}
+                    return {error: true, message: "Login incorreto!"}
                 }
-                return {message: "Email not found.", error: true}
+                return {message: "Login incorreto!", error: true}
             }
         }catch(error){
             console.log(error)

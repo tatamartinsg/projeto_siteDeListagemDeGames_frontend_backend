@@ -156,7 +156,10 @@ export default {
           <q-icon name="menu" />
         </q-btn>
       </q-toolbar>
-      <confirm-alert v-on:confirm="logout()" v-on:cancel="cancelarLogout()" v-if="(logoutAlerta)" :username="userAuth.getUsername()"/>
+      <confirm-alert message="Você tem certeza de que deseja se deslogar?" 
+      cancelar="Continuar logado" confirmar="Deslogar"
+      v-on:confirm="logout()" v-on:cancel="cancelarLogout()" 
+      v-if="(logoutAlerta)" :username="userAuth.getUsername()"/>
 
     </div>
   </template>

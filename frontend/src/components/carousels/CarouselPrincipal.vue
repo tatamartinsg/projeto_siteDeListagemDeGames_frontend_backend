@@ -28,11 +28,12 @@ export default {
       :autoplay="autoplay"
       infinite
       class="carousel-principal"
-      @mouseenter="autoplay = false"
+      @mouseenter="autoplay = false"  
       @mouseleave="autoplay = true"     
     >
+    
       <q-carousel-slide v-if="title == 'destaque'" v-for="(game, index) in allGames" :key="game" 
-          :name="index+1" :img-src="game.imageBg"  />
+          :name="index-1" :img-src="game.imageBg"  />
 
       <q-carousel-slide v-if="title == 'gamepage'" :name="1" :img-src="allGames.imageBg"  />
     </q-carousel>

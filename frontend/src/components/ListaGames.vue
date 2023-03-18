@@ -2,11 +2,13 @@
 import Search from './Search.vue'
 import useAuth from '../stores/auth.js'
 import GamesServices from '../services/GamesServices.js'
+import ConfirmAlert from './alerts/ConfirmAlert.vue'
 
 export default{
     name:"Lista de Games",
     components:{
-        'search-games':Search
+        'search-games':Search,
+        'confirm-alert': ConfirmAlert
     },
 
     data(){
@@ -16,7 +18,12 @@ export default{
             gamesZerei: [],
             gamesDesejoComprar: [],
             gamesEstouJogando: [],
-            esconderMostrar: false
+            esconderMostrar: false,
+            removerGameAlerta: false,
+            confirm: false,
+            idGameRemove: 0,
+            listingCodeRemove: 0,
+            li: ""
         }
     },
     mounted(){
@@ -61,6 +68,45 @@ export default{
         },
         esconder(){
             this.esconderMostrar = !this.esconderMostrar
+        },
+        clicouLixeira($event, idGame, listingCode){
+            this.idGameRemove = idGame
+            this.listingCodeRemove = listingCode
+            this.removerGameAlerta = true
+
+            const $li = $event.target.offsetParent.offsetParent
+            this.li = $li
+
+        },
+        confirmarRemocaoGame(){         
+            this.removerGame()
+
+            this.li.parentNode.removeChild(this.li)
+            this.li = ""
+
+            this.idGameRemove = 0
+            this.listingCodeRemove = 0
+            this.removerGameAlerta = false
+
+        },
+        cancelarRemocaoGame(){
+            this.idGameRemove = 0
+            this.listingCodeRemove = 0
+            this.removerGameAlerta = false
+        },
+        async removerGame(){
+            const auth = useAuth()
+            const body = {
+                idUserE: auth.getidUserE(),
+                username: auth.getUsername(),
+                idGame: this.idGameRemove,
+                listingCode: this.listingCodeRemove,
+                
+            }
+            
+            const data = await GamesServices.deleteGameById(body)
+            console.log(data)
+
         }
     }
 }
@@ -68,6 +114,9 @@ export default{
 
 <template>
     <main>
+        <confirm-alert v-if="removerGameAlerta == true" cancelar="Não Remover" confirmar="Remover"  message="Você tem certeza de que deseja deletar este jogo?" 
+        v-on:confirm=" confirmarRemocaoGame()" v-on:cancel="cancelarRemocaoGame()" />
+
         <section class="section-principal text-white">
 
         <h1 id="favoritos" class="h1-lista-de-games">Lista de Games</h1>
@@ -77,7 +126,7 @@ export default{
             <h1 class="div-h1-lista-games">MEUS JOGOS FAVORITOS</h1>
             <ul class="ul-lista-games">
                 
-                <li v-for="(game, index) in gamesFavoritos" :key="game">
+                <li class="li-lista-games" v-for="(game, index) in gamesFavoritos" :key="game">
 
                     <RouterLink :to="'/games/'+game.idGame" class="li-RL-lista-games" >
                         <q-img
@@ -85,9 +134,10 @@ export default{
                             :src="game.imageCard"
                             :ratio="4/3"
                             />  
-                        <h1>{{ game.name }}</h1>
-                        <q-btn  size="11px" class="btn-icone" round color="red" icon="ion-trash" />
+                        <h1>{{ game.name }}</h1>                                 
                     </RouterLink>
+                    <q-btn @click="clicouLixeira($event, game.idGame, game.listingCode)"  size="11px" class="btn-icone" round color="red" icon="ion-trash" />  
+                    
 
                 </li>
             </ul>
@@ -106,8 +156,8 @@ export default{
                             />  
                         
                         <h1>{{ game.name }}</h1>
-                        <q-btn size="11px" class="btn-icone" round color="red" icon="ion-trash" />
                     </RouterLink>
+                    <q-btn @click="clicouLixeira($event, game.idGame, game.listingCode)" size="11px" class="btn-icone" round color="red" icon="ion-trash" />
                 </li>
             </ul>
         </div>
@@ -124,9 +174,9 @@ export default{
                             :ratio="4/3"
                             />  
                         
-                        <h1>{{ game.name }}</h1>
-                        <q-btn  size="11px" class="btn-icone" round color="red" icon="ion-trash" />
+                        <h1>{{ game.name }}</h1>                  
                     </RouterLink>
+                    <q-btn @click="clicouLixeira($event, game.idGame, game.listingCode)" size="11px" class="btn-icone" round color="red" icon="ion-trash" />
                 </li>
             </ul>
         </div>
@@ -143,9 +193,9 @@ export default{
                             :ratio="4/3"
                             />  
                         
-                        <h1>{{ game.name }}</h1>
-                        <q-btn  size="11px" class="btn-icone" round color="red" icon="ion-trash" />
+                        <h1>{{ game.name }}</h1>                       
                     </RouterLink>
+                    <q-btn @click="clicouLixeira($event, game.idGame, game.listingCode)"  size="11px" class="btn-icone" round color="red" icon="ion-trash" />
                 </li>
             </ul>
         </div>
@@ -212,12 +262,11 @@ main{
 .div-icones{    
     width: 90px;
     height: 100px;
-    position: fixed;
-    right: 5%;
-    top: 35%;
     display: flex;
     flex-direction: column;
     position: fixed;
+    right: 5%;
+    top: 35%;
     gap: 10px;
 }
 
@@ -235,6 +284,8 @@ main{
     text-align: center;
     font-family:'Courier New', Courier, monospace;
 }
+
+/* CORES de fundo para os botoes fixos na direita */
 .fundoVerde{
     background-color: rgb(29 54 41 / 57%);
 }
@@ -272,8 +323,10 @@ main{
 }
 /*========== */
 
+
 /* ====  li da lista de games === */
 .ul-lista-games li{
+    position: relative;
     width:100%;
     padding: 10px;
     border-radius: 8px;
@@ -284,7 +337,8 @@ main{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 50px;
 }
 .ul-lista-games li:hover{
     background-color: rgb(82, 82, 82);
@@ -298,6 +352,12 @@ main{
 ===== ICONE LIXEIRA da li===== */
 .icon-lixeira{
     color: red;
+}
+/* ===== BOTAO LIXEIRA da li===== */
+.btn-icone{
+    position: absolute;
+    top: 42px;
+    left: 90%;
 }
 /*========== */
 
@@ -331,6 +391,7 @@ main{
     }
     .li-RL-lista-games h1{
         font-size: 15px;
+        width: 50%;
     }
 }
 </style>
